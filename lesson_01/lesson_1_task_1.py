@@ -1,0 +1,2 @@
+MyName = "Кирилл"
+print(MyName)
