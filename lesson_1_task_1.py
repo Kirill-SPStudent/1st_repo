@@ -1,2 +1,0 @@
-MyName = "Кирилл"
-print(MyName)
