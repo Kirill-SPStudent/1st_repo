@@ -1,8 +1,8 @@
 from selenium import webdriver
 from selenium.webdriver.chrome.service import Service as ChromeService
 from webdriver_manager.chrome import ChromeDriverManager
-from pages.main_page import MainPage
-from pages.result_page import resultPage
+from pages.calculator.main_page import MainPage
+from pages.calculator.result_page import resultPage
 
 
 def test_form():
@@ -11,6 +11,6 @@ def test_form():
     main = MainPage(driver)
     main.waitime()
     main.calcul()
-    resu = resultPage
+    resu = resultPage(driver)
     resu.resss()
     driver.quit()

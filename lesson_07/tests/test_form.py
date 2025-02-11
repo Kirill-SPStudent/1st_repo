@@ -1,8 +1,8 @@
 from selenium import webdriver
 from selenium.webdriver.chrome.service import Service as ChromeService
 from webdriver_manager.chrome import ChromeDriverManager
-from pages.main_page import MainPage
-from pages.result_page import Res_page
+from pages.form.main_page import MainPage
+from pages.form.result_page import Res_page
 
 
 def test_form():
