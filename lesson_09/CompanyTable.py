@@ -21,11 +21,14 @@ class CompanyTable:
         self.db = create_engine(db_connection_string)
 
     def delete(self, id):
-        self.db.execute(self.__scripts["delete_by_id"], id_to_delete=id)
+        with self.db.begin() as conn:
+            conn.execute(self.scripts["delete_by_id"], id_to_delete=id)
 
     def create(self, name, description):
-        self.db.execute(self.__scripts["insert new"], new_name=name,
-                        new_description=description)
+        self.db.execute(
+            text(
+                "INSERT INTO company(name, description) VALUES (:name, :description)"),
+            {"name": name, "description": description})
 
     def get_max_id(self):
         return self.db.execute(self.__scripts["get_max_id"]).fetchall()[0][0]

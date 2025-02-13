@@ -89,7 +89,7 @@ def test_get_employee():
     # получите информацию о сотруднике с помощью API
     employee = employee_api.get_employee(new_employee_id)
 
-    # delete new employee and new company from DB
+    # Удаление нового сотрудника и компании из БД
     employee_table.delete(new_employee_id)
     company_table.delete(new_company_id)
 

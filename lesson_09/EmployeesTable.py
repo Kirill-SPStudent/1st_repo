@@ -33,10 +33,13 @@ class EmployeeTable:
             "company_id": company_id,
             "is_active": is_active
         }
-        self.db.execute(self.scripts["insert new"], new_employee)
+
+        with self.db.begin() as conn:
+            conn.execute(self.scripts["insert new"], new_employee)
 
     def delete(self, id):
-        self.db.execute(self.scripts["delete employee"], new_employee_id=id)
+        with self.db.begin() as conn:
+            conn.execute(self.scripts["delete employee"], {"id_to_delete": id})
 
     def get_company_employees(self, new_company_id):
         return self.db.execute(self.scripts["get company's employees"],
@@ -50,6 +53,7 @@ class EmployeeTable:
         return self.db.execute(self.scripts["get max id"]).fetchall()[0][0]
 
     def update(self, id, email, url, is_active):
-        self.db.execute(self.scripts["update employee"], new_email=email,
-                        new_url=url, new_is_active=is_active,
-                        new_employee_id=id)
+        with self.db.begin() as conn:
+            conn.execute(
+                self.scripts[
+                    "update employee"], new_email=email, new_url=url, new_is_active=is_active, new_employee_id=id)
