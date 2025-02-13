@@ -45,3 +45,31 @@ def test_create_neg_WO_Tytle():
         base_url + '/projects', json=creds, headers=my_headers)
     assert res.headers["Content-Type"] == 'application/json; charset=utf-8'
     assert res.status_code == 201
+
+
+def test_create_neg_WO_admin():
+
+    creds = {
+        "title": "тест1",
+        "users": {"20fb93f7-1214-400c-afd0-e9aef3ba12bc": ""}}
+
+    my_headers = {'Authorization': Auth1}
+
+    res = requests.post(
+        base_url + '/projects', json=creds, headers=my_headers)
+    assert res.headers["Content-Type"] == 'application/json; charset=utf-8'
+    assert res.status_code == 201
+
+
+def test_create_neg_wrong_ConType():
+
+    creds = {
+        "title": "тест1",
+        "users": {"20fb93f7-1214-400c-afd0-e9aef3ba12bc": "admin"}}
+
+    my_headers = {'Authorization': Auth1}
+
+    res = requests.post(
+        base_url + '/projects', json=creds, headers=my_headers)
+    assert res.headers["Content-Type"] == 'application/html ; charset=utf-8'
+    assert res.status_code == 201

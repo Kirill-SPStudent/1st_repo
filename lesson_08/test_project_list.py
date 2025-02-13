@@ -41,3 +41,29 @@ def test_projects_list_neg_empty_creds():
         base_url+'/projects', json=creds, headers=my_headers)
     assert res.headers["Content-Type"] == 'application/json; charset=utf-8'
     assert res.status_code == 200
+
+
+def test_projects_list_neg_WO_login():
+    # Напишите ТОЛЬКО пароль
+    creds = {
+        'login': '',
+        'password': ''}
+
+    my_headers = {'Authorization': Auth1}
+
+    res = requests.get(base_url+'/projects', json=creds, headers=my_headers)
+    assert res.headers["Content-Type"] == 'application/json; charset=utf-8'
+    assert res.status_code == 200
+
+
+def test_projects_list_neg_wrong_encoding():
+    # Напишите логин и пароль
+    creds = {
+        'login': '',
+        'password': ''}
+
+    my_headers = {'Authorization': Auth1}
+
+    res = requests.get(base_url+'/projects', json=creds, headers=my_headers)
+    assert res.headers["Content-Type"] == 'application/json; charset=utf-32'
+    assert res.status_code == 200

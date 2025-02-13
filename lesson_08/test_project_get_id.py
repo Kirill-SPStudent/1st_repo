@@ -36,3 +36,25 @@ def test_get_id_neg_empty_ContType():
         headers=my_headers)
     assert res.headers["Content-Type"] == ''
     assert res.status_code == 200
+
+
+def test_get_id_neg_WO_BaseURL():
+
+    my_headers = {'Authorization': Auth1}
+
+    res = requests.get(
+        '/projects/e0de506d-9118-453c-b713-d145e9dfb76a',
+        headers=my_headers)
+    assert res.headers["Content-Type"] == 'application/json; charset=utf-8'
+    assert res.status_code == 200
+
+
+def test_get_id_neg_wrong_method():
+
+    my_headers = {'Authorization': Auth1}
+
+    res = requests.post(
+        base_url + '/projects/e0de506d-9118-453c-b713-d145e9dfb76a',
+        headers=my_headers)
+    assert res.headers["Content-Type"] == 'application/json; charset=utf-8'
+    assert res.status_code == 200

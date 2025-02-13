@@ -44,3 +44,33 @@ def test_put_id_neg_WO_id():
         base_url + '/projects/', json=my_body, headers=my_headers)
     assert res.headers["Content-Type"] == 'application/json; charset=utf-8'
     assert res.status_code == 200
+
+
+def test_put_id_neg_status():
+    my_body = {
+        "deleted": False,
+        "title": "тест1",
+        "users": {"20fb93f7-1214-400c-afd0-e9aef3ba12bc": "admin"}}
+
+    my_headers = {'Authorization': Auth1}
+
+    res = requests.put(
+        base_url + '/projects/e0de506d-9118-453c-b713-d145e9dfb76a',
+        json=my_body, headers=my_headers)
+    assert res.headers["Content-Type"] == 'application/json; charset=utf-8'
+    assert res.status_code == 200
+
+
+def test_put_id_neg_wrong_id():
+    my_body = {
+        "deleted": True,
+        "title": "тест1",
+        "users": {"-_-_-_-///??><": "admin"}}
+
+    my_headers = {'Authorization': Auth1}
+
+    res = requests.put(
+        base_url + '/projects/e0de506d-9118-453c-b713-d145e9dfb76a',
+        json=my_body, headers=my_headers)
+    assert res.headers["Content-Type"] == 'application/json; charset=utf-8'
+    assert res.status_code == 200
